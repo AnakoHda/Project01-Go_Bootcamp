@@ -1,115 +1,119 @@
-Project «Smart Utilities»
-Task 1. Console Calculator
-You need to implement a console calculator:
+### Задание 1. Консольный калькулятор
 
-The user enters the left operand and presses Enter.
-The user enters the operation and presses Enter.
-The user enters the right operand and presses Enter.
-The program performs the selected operation and outputs the result to the console.
-The calculator must support addition, subtraction, multiplication, and division.
-Division accuracy — 3 decimal places.
-Before entering each operand or operation, the program should display a prompt to the user.
-Operands and operation are entered via the console by pressing Enter after each input.
-Operands must be of type Float64.
-If invalid input is provided, the program should print an error message (Invalid input) to stdout and prompt the user to enter the data again.
-Functional requirements:
+Необходимо реализовать консольный калькулятор: 
 
-Example:
+1) Пользователь вводит левый операнд, нажимает Enter.
+1) Пользователь вводит операцию, нажимает Enter.
+1) Пользователь вводит правый операнд, нажимает Enter.
+1) Программа вычисляет нужную операцию и выводит результат в консоль.
+1) Необходимо поддержать операции сложения, вычитания, умножения, деления.
+1) Точность деления — 3 знака после запятой.
+1) Перед вводом каждого операнда и операции программа выводит подсказку пользователю.
+1) Операнды и операция вводятся в консоли через нажатие Enter.
+1) Операнды имеют тип Float64.
+1) При вводе некорректных данных программа выводит в stdout текст ошибки (Invalid input) и просит ввести данные снова.
 
-Input left operand:
+**Функциональные требования:**
 
-10
+- Пример:
 
-Input operation
+  Input left operand: 
+  > `10`
 
-+
+  Input operation 
+  > `+`
 
-Input right operand
+  Input right operand
+  > `15`
 
-15
+Допускается только использование стандартной библиотеки.
 
-Only the standard library may be used.
+*Подсказка:* параметры считываются из консоли как строки, их необходимо преобразовать в нужный тип.
 
-Hint: Parameters are read from the console as strings and must be converted to the required type.
+### Задание 2. Наиболее часто встречающиеся слова
 
-Task 2. Most Frequent Words
-You need to implement a program that receives a list of words and a number K as input. The output must be a list of the K most frequently occurring words, sorted in descending order of frequency.
+Необходимо реализовать программу, на вход которой подаётся список слов и некоторое число K, результатом выполнения является отсортированный по возрастанию список из K наиболее часто встречающихся слов.
 
-The program reads a string of words.
-The program reads the number K, which is the limit on the number of output words.
-The program determines how many times each word appears in the input string.
-The program sorts the resulting array in descending order and returns the first K words.
-The delimiter between words is the space character.
-If the number of unique words is less than K, the program returns a list of all unique words, sorted by frequency.
-If an empty string is given as input, the output must also be an empty string.
-A word is any sequence of characters separated by spaces.
-If multiple words have the same frequency, they must be sorted lexicographically.
-You must implement tests that cover the following cases:
-a. Normal behavior when K is less than the number of unique words.
-b. Input is an empty list of words.
-c. Input list contains fewer unique words than K.
-Functional requirements:
+1) Программа считывает строку со словами.
+1) Программа считывает число K, ограничение на количество слов.
+1) Программа определяет, сколько раз каждое слово встречается в строке.
+1) Программа сортирует результирующий массив по убыванию и возвращает K первых слов.
+1) Разделителем для слов является символ пробела.
+1) Если слов в строке меньше K, то выводится список из всех уникальных слов, отсортированных по их частоте вхождения в строку.
+1) Если на вход подана пустая строка, то на выходе будет пустая строка.
+1) Словом является любой символ, разделенный пробелами.
+1) Если слова имеют одинаковую частоту, то должны быть отсортированы **лексикографически**.
+1) Необходимо реализовать тесты для проверки сценариев: \
+   a. обычное поведение с K меньшим, чем количество уникальных слов; \
+   b. передача пустого списка слов; \
+   c. передача списка слов, где K больше, чем число уникальных слов.
 
-Example:
-Input:
+**Функциональные требования:**
 
+- Пример: 
+
+Входные данные:
+
+```
 aa bb cc aa cc cc cc aa ab ac bb
 3
-Output:
+```
 
+Результат:
+
+```
 cc aa bb
-Because:
-cc appears 4 times,
-aa — 3 times,
-bb — 2 times.
+```
 
-Only the standard library is allowed.
-We recommend using the testing package for writing your tests.
+Так как `cc` встречается 4 раза, `aa` — 3 раза, `bb` — 2 раза.
 
-Task 3. Slice Intersection
-The program reads the first list of numbers from the console, separated by spaces; input is finalized by pressing Enter.
-The program reads the second list of numbers from the console, separated by spaces; input is finalized by pressing Enter.
-The input lists are unordered.
-The program works only with numbers of type int.
-The program finds the intersection of the two lists and returns it in the order the values appear in the first list.
-Input:
+Допускается только использование стандартной библиотеки. \
+Для тестирования рекомендуем использовать пакет testing.
 
+### Задание 3. Пересечение срезов
+
+1) Программа считывает из консоли первый список чисел, разделенных пробелами; завершить нажатие нужно нажатием Enter.
+1) Программа считывает из консоли второй список чисел, разделенных пробелами; завершить нажатие нужно нажатием Enter.
+1) Списки чисел на вход поступают неупорядоченные.
+1) Программа работает только с числами типа int.
+1) Программа находит пересечение 2 списков и возвращает в том порядке, в котором они встречаются в первом списке.
+   
+**Пример:**
+
+**Ввод:**
+
+```
 5 3 4 2 1 6
 6 4 2 4
-Output:
+```
 
+**Результат:**
+
+```
 4 2 6
-If the intersection is empty, the program outputs: Empty intersection.
-If the list contains values that are not of type int, the program outputs the error message Invalid input and terminates.
-Task 4. Visit Log
-The program implements 3 commands in interactive mode (commands are entered in the console without stopping the main execution).
+```
 
-The Save operation allows saving the visitor’s full name, the doctor's specialization they visited, and the visit date into the log.
-a. The doctor’s specialization is provided as a string.
+1) Если пересечение пустое, программа выводит текст: «Empty intersection». 
+2) Если в списке содержатся числа не типа int, программа выводит ошибку «Invalid input» и завершает свою работу.
 
-b. The visit date is in the format YYYY-MM-DD.
+### Задание 4. Журнал посещений
 
-c. Example: Save \n Ivanov Ivan Ivanovich \n orthopedist \n 2024-04-13
+1) Программа реализует 3 команды в интерактивном режиме (команды вводятся в консоль без прерывания основного запуска).
+1) Операция **Save** позволяет сохранять в картотеку ФИО посетителя, специализацию врача, к которому он приходил, и дата визита. \
+   a. Специализация врача передаётся как строка. \
+   b. Дата визита в формате `YYYY-MM-DD`. \
+   c. Пример: `Save \n Иванов Иван Иванович \n ортопед \n 2024-04-13`. \
+   d. `\n` — перенос строки, Enter.
+1) Операция **GetHistory** позволяет просмотреть историю посещения пациентом больницы. Принимает ФИО пациента и возвращает список из пар специализация врача и дата визита. \
+   a. Пример: `GetHistory \n Иванов Иван Иванович`. \
+   b. Ответ: `ортопед  2024-04-13 \n невролог 2024-05-24 \n`. \
+   c. `\n` — перенос строки, Enter.
+1) Операция **GetLastVisit** позволяет получить последнее посещение пациентом определенного специалиста в больнице. Принимает ФИО пациента и специализацию врача и возвращает дату последнего визита. \
+   a. Пример: `GetLastVisit \n Иванов Иван Иванович \n ортопед`. \
+   b. Ответ: `2024-04-13`. \
+   c. `\n` — перенос строки, Enter.
+1) Если пациент не найден, то программа возвращает ошибку с типом `PatientNotFoundError` с текстом ошибки `patient not found` (необходимо реализовать самостоятельно).
 
-d. \n means a line break, i.e. Enter.
+Хранение данных осуществляется только в памяти, долгосрочное хранение данных не предусмотрено.
 
-The GetHistory operation allows viewing the patient's visit history. It takes the patient's full name and returns a list of specialization–date pairs.
-a. Example: GetHistory \n Ivanov Ivan Ivanovich
-
-b. Output: orthopedist 2024-04-13 \n neurologist 2024-05-24 \n
-
-c. \n means a line break, i.e. Enter.
-
-The GetLastVisit operation returns the last visit to a specific specialist. It takes the patient’s full name and the doctor’s specialization and returns the last visit date.
-a. Example: GetLastVisit \n Ivanov Ivan Ivanovich \n orthopedist
-
-b. Output: 2024-04-13
-
-c. \n means a line break, i.e. Enter.
-
-If the patient is not found, the program returns an error of type PatientNotFoundError with the message patient not found (this must be implemented manually).
-
-Data is stored in memory only; long-term data persistence is not required.
-
-Hint: you may use the map type as a storage structure.
-To store visit data, define an additional structure with the fields: specialization and visit date.
+*Подсказка:* в качестве хранилища можно использовать тип map. Для хранения данных о посещениях необходимо завести дополнительную структуру с полями: специализация и дата посещения.
