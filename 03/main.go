@@ -9,37 +9,38 @@ import (
 )
 
 func main() {
-	var abb []int
+	var firstMass []int
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
-	first := scanner.Text()
-	arrfirst := strings.Fields(first)
-	for _, v := range arrfirst {
+
+	firstInput := scanner.Text()
+	arrFirst := strings.Fields(firstInput)
+	for _, v := range arrFirst {
 		num, err := strconv.Atoi(v)
 		if err != nil {
 			fmt.Println("Invalid input")
 			return
 		}
-		abb = append(abb, num)
+		firstMass = append(firstMass, num)
 	}
 
 	scanner.Scan()
-	second := scanner.Text()
-	arrsecond := strings.Fields(second)
-	daa := make(map[int]int)
-	for _, v := range arrsecond {
+	secondInput := scanner.Text()
+	arrSecond := strings.Fields(secondInput)
+	secomdMap := make(map[int]int)
+	for _, v := range arrSecond {
 		num, err := strconv.Atoi(v)
 		if err != nil {
 			fmt.Println("Invalid input")
 			return
 		}
-		daa[num] = 1
+		secomdMap[num] = 1
 	}
 	var result string
-	for i := 0; i < len(abb); i++ {
-		if daa[abb[i]] == 1 {
-			daa[abb[i]] = 0
-			result += strconv.Itoa(abb[i]) + " "
+	for i := 0; i < len(firstMass); i++ {
+		if secomdMap[firstMass[i]] == 1 {
+			secomdMap[firstMass[i]] = 0
+			result += strconv.Itoa(firstMass[i]) + " "
 		}
 	}
 	if result == "" {
