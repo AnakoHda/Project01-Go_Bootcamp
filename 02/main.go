@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"sort"
 	"strconv"
@@ -25,7 +26,7 @@ func main() {
 	if err != nil {
 		return
 	}
-	println(PrintWordFrequencies(words, k))
+	fmt.Println(PrintWordFrequencies(words, k))
 }
 func PrintWordFrequencies(words []string, k int) string {
 	freqMap := make(map[string]int)
@@ -36,6 +37,7 @@ func PrintWordFrequencies(words []string, k int) string {
 	for word, freq := range freqMap {
 		w = append(w, WordFrequency{Word: word, Frequency: freq})
 	}
+	
 	sort.Slice(w, func(i, j int) bool {
 		if w[i].Frequency == w[j].Frequency {
 			return w[i].Word < w[j].Word
