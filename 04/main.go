@@ -18,66 +18,99 @@ func (e PatientNotFoundError) Error() string {
 	return "patient not found"
 }
 
-func findFIO(all map[string][]visit, find string) (string, error) {
+func findFIO(all map[string][]visit, find string) (bool, error) {
 	if _, exist := all[find]; !exist {
-		return "patient NOT found", PatientNotFoundError{}
+		return false, PatientNotFoundError{}
 	}
-	return "patient found", nil
+	return true, nil
 }
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	visits := make(map[string][]visit)
 	var input string
-	var FIO, spec, date string
 	for {
-		fmt.Scan(&input)
-		//Ivanov Ivan Ivanovich /n orthopedist /n 2024-04-13
-		if input == "Save" {
-			FIO, _ = reader.ReadString('\n')
-			FIO = strings.TrimSpace(FIO)
-			fmt.Scan(&spec)
-			fmt.Scan(&date)
+		input = readLine(reader)
 
-			t, _ := time.Parse("2006-01-02", date)
-			visits[FIO] = append(visits[FIO], visit{spec, t})
-		}
-		//GetHistory /n Ivanov Ivan Ivanovich
-		if input == "GetHistory" {
-			FIO, _ = reader.ReadString('\n')
-			FIO = strings.TrimSpace(FIO)
-			_, err := findFIO(visits, FIO)
-			if err != nil {
-				fmt.Println(err.Error())
-				return
+		switch input {
+		case "Save":
+			/*
+				Save
+				Ivanov Ivan Ivanovich
+				orthopedist
+				2024-04-13
+			*/
+			save(visits, reader)
+
+		case "GetHistory":
+			/*
+				GetHistory
+				Ivanov Ivan Ivanovich
+			*/
+			if err := getHistory(visits, reader); err != nil {
+				continue
 			}
 
-			for _, value := range visits[FIO] {
-				fmt.Println(value.Specialization, "\n", value.Date.Format("2006-01-02"))
+		case "GetLastVisit":
+			/*
+				GetLastVisit
+				Ivanov Ivan Ivanovich
+				orthopedist
+			*/
+			if err := getLastVisit(visits, reader); err != nil {
+				continue
 			}
-		}
-		//GetLastVisit /n Ivanov Ivan Ivanovich /n orthopedist
-		if input == "GetLastVisit" {
-			FIO, _ = reader.ReadString('\n')
-			FIO = strings.TrimSpace(FIO)
 
-			_, err := findFIO(visits, FIO)
-			if err != nil {
-				fmt.Println(err.Error())
-				return
-			}
-			fmt.Scan(&spec)
-			first := true
-			var last time.Time
-			for _, value := range visits[FIO] {
-				if value.Specialization == spec && first {
-					last = value.Date
-					first = false
-				}
-				if value.Date.After(last) && value.Specialization == spec {
-					last = value.Date
-				}
-			}
-			fmt.Println(last.Format("2006-01-02"))
 		}
 	}
+}
+
+func readLine(reader *bufio.Reader) string {
+	str, _ := reader.ReadString('\n')
+	return strings.TrimSpace(str)
+}
+
+func save(visits map[string][]visit, reader *bufio.Reader) {
+	FIO := readLine(reader)
+	spec := readLine(reader)
+	date := readLine(reader)
+
+	t, _ := time.Parse("2006-01-02", date)
+	visits[FIO] = append(visits[FIO], visit{spec, t})
+}
+func getHistory(visits map[string][]visit, reader *bufio.Reader) error {
+	FIO := readLine(reader)
+
+	if _, err := findFIO(visits, FIO); err != nil {
+		fmt.Println(err.Error())
+		return err
+	}
+
+	for _, value := range visits[FIO] {
+		fmt.Printf("%s \n%s\n", value.Specialization, value.Date.Format("2006-01-02"))
+	}
+	return nil
+}
+func getLastVisit(visits map[string][]visit, reader *bufio.Reader) error {
+	FIO := readLine(reader)
+
+	if _, err := findFIO(visits, FIO); err != nil {
+		fmt.Println(err.Error())
+		return err
+	}
+
+	spec := readLine(reader)
+
+	first := true
+	var last time.Time
+	for _, value := range visits[FIO] {
+		if value.Specialization == spec && first {
+			last = value.Date
+			first = false
+		}
+		if value.Date.After(last) && value.Specialization == spec {
+			last = value.Date
+		}
+	}
+	fmt.Println(last.Format("2006-01-02"))
+	return nil
 }
